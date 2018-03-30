@@ -1,0 +1,16 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /bookkeeping
+    
+spring:
+  jpa:
+   show-sql: true
+   hibernate:
+      ddl-auto: 
+      
+  datasource:
+    url: jdbc:mysql://localhost:3306/bookkeeping
+    username: root
+    password: admin
+    driver-class-name: com.mysql.jdbc.Driver

@@ -1,15 +1,12 @@
 package com.tony.bookkeeping.controller;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tony.bookkeeping.beans.User;
@@ -28,13 +25,12 @@ public class UserController {
 	}
 	
 	@PostMapping(value = "/adduser")
-	public User addUser(@RequestParam("name") String name, @RequestParam("gender") String gender,@RequestParam("birthday") String birthday,@RequestParam("profession") String profession)
+	public User addUser(User user)
 	{
-		User user = new User();
-		user.setBirthday(birthday);
-		user.setGender(gender);
-		user.setName(name);
-		user.setProfession(profession);
+		user.setBirthday(user.getBirthday());
+		user.setGender(user.getGender());
+		user.setName(user.getName());
+		user.setProfession(user.getProfession());
 		return userRepository.save(user);
 	}
 	
@@ -46,15 +42,10 @@ public class UserController {
 	
 	
 	@PutMapping(value="/user/{id}")
-	public User updateUser(@PathVariable("id") Integer id,@RequestParam("name") String name, @RequestParam("gender") String gender,@RequestParam("birthday") String birthday,@RequestParam("profession") String profession)
+	public User updateUser(User user)
 	{
-		User user = new User();
-		user.setId(id);
-		user.setBirthday(birthday);
-		user.setGender(gender);
-		user.setName(name);
-		user.setProfession(profession);
-		return userRepository.save(user);
+		user.setId(user.getId());
+		return addUser(user);
 	}
 	
 	@DeleteMapping(value="/user/{id}")

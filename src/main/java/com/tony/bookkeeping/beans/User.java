@@ -19,7 +19,7 @@ public class User {
 	
 	private String gender;
 	
-	private Date birthday;
+	private String birthday;
 	
 	private String profession;
 
@@ -47,11 +47,11 @@ public class User {
 		this.gender = gender;
 	}
 
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 

@@ -1,13 +1,11 @@
 server:
   port: 8081
-  servlet:
-    context-path: /bookkeeping
     
 spring:
   jpa:
    show-sql: true
    hibernate:
-      ddl-auto: 
+      ddl-auto: create
       
   datasource:
     url: jdbc:mysql://localhost:3306/bookkeeping

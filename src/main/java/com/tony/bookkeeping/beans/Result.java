@@ -1,6 +1,6 @@
 package com.tony.bookkeeping.beans;
 
-public class ResponseResult <T>{
+public class Result <T>{
 	
 	private int code;
 	

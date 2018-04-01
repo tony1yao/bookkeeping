@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tony.bookkeeping.beans.Result;
 import com.tony.bookkeeping.beans.User;
 import com.tony.bookkeeping.exception.UserException;
 import com.tony.bookkeeping.repository.UserRepository;
 import com.tony.bookkeeping.service.UserService;
+import com.tony.bookkeeping.util.ResultUtil;
 
 @RestController
 public class UserController {
@@ -33,13 +35,12 @@ public class UserController {
 	}
 	
 	@PostMapping(value = "/adduser")
-	public User addUser(User user , BindingResult result)
+	public Result<User> addUser(User user , BindingResult result)
 	{
 		if(result.hasErrors())
 		{
-			logger.error(result.getFieldError().getDefaultMessage());
 			logger.info("Error happened.");
-			return null;
+			return ResultUtil.error(0, result.getFieldError().getDefaultMessage());
 		}
 		return userService.addUser(user);
 	}
@@ -52,7 +53,7 @@ public class UserController {
 	
 	
 	@PutMapping(value="/user/{id}")
-	public User updateUser(User user)
+	public Result<User> updateUser(User user)
 	{
 		return userService.updateUser(user);
 	}

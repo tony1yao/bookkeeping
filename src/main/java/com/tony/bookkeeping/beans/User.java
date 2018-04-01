@@ -62,4 +62,12 @@ public class User {
 	public void setProfession(String profession) {
 		this.profession = profession;
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", gender=" + gender + ", birthday=" + birthday + ", profession="
+				+ profession + "]";
+	}
+	
+	
 }

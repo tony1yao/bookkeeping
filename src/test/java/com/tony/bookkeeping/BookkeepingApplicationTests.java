@@ -1,4 +1,4 @@
-package com.tony.bookkeeping.bookkeeping;
+package com.tony.bookkeeping;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

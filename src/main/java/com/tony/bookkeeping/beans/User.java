@@ -2,6 +2,7 @@ package com.tony.bookkeeping.beans;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ public class User {
 	
 	private String name;
 	
+	@Column(nullable=false)
 	private String gender;
 	
 	private String birthday;

@@ -1,7 +1,11 @@
 package com.tony.bookkeeping.controller;
 
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,53 +14,58 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tony.bookkeeping.beans.User;
+import com.tony.bookkeeping.exception.UserException;
 import com.tony.bookkeeping.repository.UserRepository;
+import com.tony.bookkeeping.service.UserService;
 
 @RestController
 public class UserController {
-
+	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
+	
+	private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@GetMapping(value = "/users")
 	public List<User> getUsers()
 	{
-		return userRepository.findAll();
+		return userService.getUsers();
 	}
 	
 	@PostMapping(value = "/adduser")
-	public User addUser(User user)
+	public User addUser(User user , BindingResult result)
 	{
-		user.setBirthday(user.getBirthday());
-		user.setGender(user.getGender());
-		user.setName(user.getName());
-		user.setProfession(user.getProfession());
-		return userRepository.save(user);
+		if(result.hasErrors())
+		{
+			logger.error(result.getFieldError().getDefaultMessage());
+			logger.info("Error happened.");
+			return null;
+		}
+		return userService.addUser(user);
 	}
 	
 	@GetMapping(value="/user/{id}")
 	public User getUser(@PathVariable("id") Integer id)
 	{
-		return userRepository.findById(id).get();
+		return userService.getUser(id);
 	}
 	
 	
 	@PutMapping(value="/user/{id}")
 	public User updateUser(User user)
 	{
-		user.setId(user.getId());
-		return addUser(user);
+		return userService.updateUser(user);
 	}
 	
 	@DeleteMapping(value="/user/{id}")
 	public void deleteUser(@PathVariable("id") Integer id)
 	{
-		userRepository.deleteById(id);
+		userService.deleteUser(id);
 	}
 	
 	@GetMapping(value="/user/gender/{gender}")
-	public List<User> getUserByGender(@PathVariable("gender") String gender)
+	public List<User> getUserByGender(@PathVariable("gender") String gender) throws UserException
 	{
-		return userRepository.findByGender(gender);
+		return userService.getUserByGender(gender);
 	}
 }
